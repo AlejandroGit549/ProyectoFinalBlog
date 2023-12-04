@@ -4,12 +4,13 @@ using System;
 using System.Collections.Generic;
 using System.IO.Pipes;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ProyectoBlogRespositorio
 {
-    public class RepositorioGenerico<TEntity> : IRepositorioGenerico<TEntity> where TEntity : class
+    public class RepositorioGenerico<TEntity> : IRepositorioGenerico<TEntity> where TEntity : class 
     {
         private BlogContext _context;
         private DbSet<TEntity> _dbSet;
@@ -46,10 +47,14 @@ namespace ProyectoBlogRespositorio
             _context.Entry(entity).State = EntityState.Modified;
         }
 
+        public IEnumerable<TEntity> GetAll(Expression<Func<TEntity, bool>> expresionLambda)
+        {
+           return _dbSet.Where(expresionLambda).ToList();
+        }
+
         public void Save()
         {
             _context.SaveChanges();
         }
-
     }
 }
