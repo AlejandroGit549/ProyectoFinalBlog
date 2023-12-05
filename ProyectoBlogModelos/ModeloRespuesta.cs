@@ -54,10 +54,10 @@ namespace ProyectoBlogModelos
             ActualizarRespuesta(origen.Codigo, origen.Mensaje, origen.Valor);
         }
 
-        public T ObtenerValorComo<T>()
+        public T? ObtenerValorComo<T>()
         {
             if (this.Exito)
-                return (T)((object)this.Valor);
+                return (T)(object)Valor;
             else
                 return (T)Activator.CreateInstance(typeof(T), new object[] { });
         }
