@@ -110,15 +110,28 @@ namespace ProyectoBlogReglas.ReglasEntidades
         public ModeloRespuesta GetAll()
         {
             ModeloRespuesta respuesta = new ModeloRespuesta();
+            List<ModeloAttachment> modeloAttachments = new List<ModeloAttachment>();
             try
             {
                 using (ProyectoBlogDatos.Data.BlogContext context = new ProyectoBlogDatos.Data.BlogContext())
                 {
 
                     var respositorio = new RepositorioGenerico<ProyectoBlogDatos.Data.Attachment>(context);
-                    var attachment = respositorio.GetAll();
+                    var attachments = respositorio.GetAll();
                     //TODO: realizar conversiòn de Entidad a DTO
-                    respuesta.ActualizarRespuesta(CodigosRespuesta.Exito, MensajesRespuesta.Exito);
+
+                    foreach (var attachment in attachments)
+                    {
+                        modeloAttachments.Add(new ModeloAttachment()
+                        {
+                            Id = attachment.Id,
+                            Name = attachment.Name,
+                            Description = attachment.Description,
+                            Url = attachment.Url
+                        });
+                    }
+
+                    respuesta.ActualizarRespuesta(CodigosRespuesta.Exito, MensajesRespuesta.Exito, modeloAttachments);
                 }
             }
             catch (Exception)

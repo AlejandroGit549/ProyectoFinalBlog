@@ -11,4 +11,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ProyectoBlogModelos\ProyectoBlogModelos.csproj" />
+    <ProjectReference Include="..\ProyectoBlogReglas\ProyectoBlogReglas.csproj" />
+  </ItemGroup>
+
 </Project>
